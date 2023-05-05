@@ -1,4 +1,17 @@
-from users import users
+users = []
+try:
+    from users import users
+except ModuleNotFoundError:
+    print('No module \'users\' found.')
+    if 'y' == input('Would you like to enter users manually (y/n)? '):
+        user = input('User (ENTER to quit): ')
+        while user != '':
+            users.append(user)
+            user = input('User (ENTER to quit): ')
+    else:
+        print('No Dockerfile written.')
+        exit(1)
+
 from sys import argv
 import os
 
@@ -33,5 +46,7 @@ if __name__ == '__main__':
         f.write('EXPOSE 22\n')
     
         f.write('CMD ["/usr/sbin/sshd","-D"]\n')
+
+    print('Output written to Dockerfile')
 
 
